@@ -15,11 +15,25 @@ else
 fi
 
 
-echo "------------UC2-----------"
+echo "------------UC2,UC3-----------"
+
 EmpWagePerHour=20;
-FullDayHour=8;
 
-salary=$(( $EmpWagePerHour * $FullDayHour ));
+
+
+if [ 1 -eq $randomCheck ]
+then
+	echo "employee is part time and part times hours are  8"
+        empHours=8;
+elif [ 0 -eq $randomCheck ]
+then
+	echo "employee is full time and full times hours are  16"
+	empHours=16;
+	
+else
+        empHours=0;
+fi
+
+salary=$(( $EmpWagePerHour * $empHours ));
 echo "Employee Wage is $salary for one day"
-
 
