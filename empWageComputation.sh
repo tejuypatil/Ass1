@@ -3,34 +3,31 @@
 
 echo "Welcome to Employee Wage Computation"
 
-isPresent=1;
-randomCheck=$((RANDOM%3))
-
-
-if [ $isPresent -eq $randomCheck ]
-then
-	echo "Emplyoee is present"
-else
-	echo "Emplyoee is absent"
-fi
-
-
-echo "------------UC4-----------"
-
 isPartTime=1
 isFullTime=2
 EmpWagePerHour=20;
+workingDays=20;
+totalHours=0;
 
+for (( day=1; day<=$workingDays; day++ ))
+do
+	randomCheck=$((RANDOM%3));
+	case $randomCheck in
+	$isPartTime)
+		dayType=PartTime
+		empHours=8;;
+	$isFullTime)
+		dayType=FullTime
+		empHours=16;;
+	*)
+		dayType=LeaveTime
+        	empHours=0;;
+	esac
+	totalHours=$(( $totalHours + $empHours ))
+	echo "day $day : $dayType : $totalHours"
+done
 
-case $randomCheck in
-$isPartTime)
-	empHours=8;;
-$isFullTime)
-	empHours=16;;
-*)
-        empHours=0;;
-esac
+salary=$(( $EmpWagePerHour * $totalHours ));
+echo "Employee Wage is $salary per month"
 
-salary=$(( $EmpWagePerHour * $empHours ));
-echo "Employee Wage is $salary for one day"
 
