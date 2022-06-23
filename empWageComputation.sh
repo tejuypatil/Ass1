@@ -1,3 +1,4 @@
+
 #!/bin/bash -x
 
 
@@ -8,23 +9,25 @@ isFullTime=2
 EmpWagePerHour=20;
 workingDays=20;
 totalHours=0;
+day=1
 
-for (( day=1; day<=$workingDays; day++ ))
+while (( day<=$workingDays && totalHours<=100))
 do
 	randomCheck=$((RANDOM%3));
 	case $randomCheck in
 	$isPartTime)
 		dayType=PartTime
-		empHours=8;;
+		empHours=4;;
 	$isFullTime)
 		dayType=FullTime
-		empHours=16;;
+		empHours=10;;
 	*)
 		dayType=LeaveTime
         	empHours=0;;
 	esac
 	totalHours=$(( $totalHours + $empHours ))
 	echo "day $day : $dayType : $totalHours"
+	day=$(( $day + 1))
 done
 
 salary=$(( $EmpWagePerHour * $totalHours ));
